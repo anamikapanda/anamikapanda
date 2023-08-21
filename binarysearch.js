@@ -10,10 +10,15 @@ async function binarysearch(){
     let minIndex=0;
     let maxIndex=array.length-1;
     let testElement;
+    bar[0].style.background="08605F";
     while(minIndex<=maxIndex){
       const middleIndex=Math.floor((minIndex+maxIndex)/2);
       testElement=array[middleIndex];
     }
+    bar[middleIndex].style.background="#001F54";
+    
+    
+  
     if(testElement<element){
       minIndex=middleIndex+1;
     }
