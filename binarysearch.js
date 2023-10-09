@@ -1,32 +1,44 @@
-async function binarysearch(){
-  console.log("Binary search");
+javascript function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve,ms));
+}
+async function binarySearch(arr,target){
+  let left=0;
+  let right=arr.length-1;
+  while(left<=right){
+    let mid=Math.floor((left+right)/2);
+    highlightBar(mid,'highlight');
+    await sleep(1000);
 
-  const pause=document.querySelector(".pause");
-  pause.style.visibility = "visible";
-
-  const bar=document.querySelectorAll(".bar");
-  const barBefore=document.querySelectorAll(".bar-before");
-  function BinarySearch(array,element){
-    let minIndex=0;
-    let maxIndex=array.length-1;
-    let testElement;
-    bar[0].style.background="08605F";
-    while(minIndex<=maxIndex){
-      const middleIndex=Math.floor((minIndex+maxIndex)/2);
-      testElement=array[middleIndex];
+    if(arr[mid]===target){
+      highlight(mid,'bar');
+      return mid;
     }
-    bar[middleIndex].style.background="#001F54";
-    
-    
-  
-    if(testElement<element){
-      minIndex=middleIndex+1;
+    if(arr[mid]<target){
+      left=mid+1;
+    } else
+    {
+      right=mid-1;
     }
-    else if(testElement>element){
-      maxIndex=middleIndex-1;
-    }
-    else{
-      return middleIndex;
-    }
+    highlightBar(mid,'bar');
   }
-  
+  return -1;
+}
+
+function highlightBar(index,className){
+  const bars=document.querySelectorAll('.bar');
+  bars[index].classList.add(className);
+}
+
+async function startBinarySearch(){
+  const target=Math.floor(Math.random()*100);
+  const sortedArray=Array.from({length:20},()=>Math.floor(Math.random()*100)).sort((a,b)=>a-b);
+  const resultIndex=await binarySearch(sortedArray,target);
+  if (resultIndex!==-1){
+    alert('Target $ {target} found at index $ {resuktIndex}');
+  }
+  else{
+    alert('Target $ {target} not found in the array');
+  }
+}
+
+     
